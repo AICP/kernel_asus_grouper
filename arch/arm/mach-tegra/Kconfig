@@ -283,7 +283,7 @@ config TEGRA_CPU_DVFS
 	depends on TEGRA_SILICON_PLATFORM
 	default y
 
-config TEGRA_CORE_DVFS
+config TEGRA_CORE_DVFSTEGRA_CPU_OVERCLOCK
 	bool "Enable voltage scaling on Tegra core"
 	depends on TEGRA_SILICON_PLATFORM
 	depends on TEGRA_CPU_DVFS
@@ -452,6 +452,13 @@ config TEGRA_CPU_OVERCLOCK_ULTIMATE
 	default n
 	help
 	  Tegra3 CPU overclocking Ultimate edition
+
+config TEGRA_CPU_OVERCLOCK
+	bool "Tegra3 CPU Overclocking"
+	depends on ARCH_TEGRA_3x_SOC
+	default n
+	help
+	  Tegra3 CPU overclocking
 
 config TEGRA_STAT_MON
         bool "Enable H/W statistics monitor"
