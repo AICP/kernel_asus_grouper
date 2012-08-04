@@ -418,6 +418,34 @@ config TEGRA_CONVSERVATIVE_GOV_ON_EARLYSUPSEND
 	help
 	 Also will restore to original cpu frequency governor when device is resumed
 
+config TEGRA_RUNNABLE_THREAD
+	bool "Tegra3 runnable thread hotplug"
+	depends on ARCH_TEGRA_3x_SOC
+	default n
+	help
+	  Tegra3 Runnable Thread calculations for CPU hotplug
+
+config TEGRA_GAMING_FIX
+	bool "Tegra3 Gaming Fix"
+	depends on ARCH_TEGRA_3x_SOC
+	default n
+	help
+	  Tegra3 Quadcore Gaming Fix
+
+config TEGRA_GPU_OVERCLOCK
+	bool "Tegra3 GPU Overclocking"
+	depends on ARCH_TEGRA_3x_SOC
+	default n
+	help
+	  Tegra3 Runnable Thread calculations for CPU hotplug
+
+config TEGRA_CPU_OVERCLOCK_ULTIMATE
+	bool "Tegra3 CPU Overclocking Ultimate"
+	depends on ARCH_TEGRA_3x_SOC && TEGRA_CPU_OVERCLOCK
+	default n
+	help
+	  Tegra3 CPU overclocking Ultimate edition
+
 config TEGRA_STAT_MON
         bool "Enable H/W statistics monitor"
         depends on ARCH_TEGRA_2x_SOC
