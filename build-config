@@ -12,7 +12,7 @@ FTPTARGETDIR="/kernels/grouper"
 
 SYSTEM_PARTITION="/dev/block/platform/sdhci-tegra.3/by-name/APP"
 
-DEFCONFIG=cm_grouper_defconfig
+DEFCONFIG=auto_grouper_defconfig
 
 FLASH_BOOT='/dev/block/mmcblk0p2'
 
