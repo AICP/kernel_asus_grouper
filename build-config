@@ -1,6 +1,6 @@
 TOOLCHAINDIR=~/toolchain
 
-TOOLCHAIN=arm-eabi-4.6
+TOOLCHAIN=arm-eabi-4.7
 
 CROSS_COMPILE=$TOOLCHAINDIR/$TOOLCHAIN/bin/arm-eabi-
 
@@ -12,7 +12,7 @@ FTPTARGETDIR="/kernels/grouper"
 
 SYSTEM_PARTITION="/dev/block/platform/sdhci-tegra.3/by-name/APP"
 
-DEFCONFIG=grouper_funky_defconfig
+DEFCONFIG=cm_grouper_defconfig
 
 FLASH_BOOT='/dev/block/mmcblk0p2'
 
@@ -21,7 +21,7 @@ PHONE='Asus Nexus7(Grouper)'
 # ----
 
 N_CORES=8
-VERSION=Funky-Kernel-v1.1
+VERSION=Funky-Kernel-v1.4
 
 # ----
 
