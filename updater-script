@@ -1,4 +1,3 @@
-ui_print("Linux upstream version:@@UPSTREAM@@");
 ui_print("Mounting /system");
 run_program("/sbin/mount", "@@SYSTEM_PARTITION@@", "/system");
 ui_print("Installing modules");
