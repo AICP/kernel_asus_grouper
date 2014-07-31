@@ -52,7 +52,7 @@ scm_version()
 			# If only the short version is requested, don't bother
 			# running further git commands
 			if $short; then
-				echo "+"
+				echo " "
 				return
 			fi
 			# If we are past a tagged commit (like
@@ -73,12 +73,6 @@ scm_version()
 
 		# Update index only on r/w media
 		[ -w . ] && git update-index --refresh --unmerged > /dev/null
-
-		# Check for uncommitted changes
-		if git diff-index --name-only HEAD | grep -v "^scripts/package" \
-		    | read dummy; then
-			printf '%s' -dirty
-		fi
 
 		# All done with git
 		return
