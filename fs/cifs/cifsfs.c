@@ -49,6 +49,7 @@
 #include "cifs_spnego.h"
 #include "fscache.h"
 #define CIFS_MAGIC_NUMBER 0xFF534D42	/* the first four bytes of SMB PDUs */
+#define MODULE_ALIAS_FS cifs
 
 int cifsFYI = 0;
 int cifsERROR = 1;
@@ -763,7 +764,7 @@ struct file_system_type cifs_fs_type = {
 	.kill_sb = cifs_kill_sb,
 	/*  .fs_flags */
 };
-MODULE_ALIAS_FS("cifs");
+
 const struct inode_operations cifs_dir_inode_ops = {
 	.create = cifs_create,
 	.lookup = cifs_lookup,
