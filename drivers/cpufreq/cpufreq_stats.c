@@ -22,9 +22,9 @@
 #include <linux/notifier.h>
 #include <linux/sort.h>
 #include <linux/err.h>
-#include <linux/of.h>
 #include <linux/sched.h>
 #include <asm/cputime.h>
+#include <linux/of.h>
 
 static spinlock_t cpufreq_stats_lock;
 
@@ -66,11 +66,6 @@ struct all_freq_table {
 };
 
 static struct all_freq_table *all_freq_table;
-
-static inline struct device_node *of_find_node_by_path(const char *path)
-{
-	return NULL;
-};
 
 
 static DEFINE_PER_CPU(struct all_cpufreq_stats *, all_cpufreq_stats);
@@ -482,7 +477,6 @@ static void cpufreq_powerstats_create(unsigned int cpu,
 		powerstats->freq_table[j++] = freq;
 	}
 	powerstats->state_num = j;
-
 	snprintf(device_path, sizeof(device_path), "/cpus/cpu@%d", cpu);
 	cpu_node = of_find_node_by_path(device_path);
 	if (cpu_node) {
