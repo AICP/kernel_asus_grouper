@@ -22,7 +22,6 @@ config CPU_FREQ_TABLE
 
 config CPU_FREQ_STAT
 	tristate "CPU frequency translation statistics"
-	depends on OF
 	select CPU_FREQ_TABLE
 	default y
 	help
