@@ -72,7 +72,6 @@ static inline struct device_node *of_find_node_by_path(const char *path)
 	return NULL;
 };
 
-
 static DEFINE_PER_CPU(struct all_cpufreq_stats *, all_cpufreq_stats);
 static DEFINE_PER_CPU(struct cpufreq_stats *, cpufreq_stats_table);
 static DEFINE_PER_CPU(struct cpufreq_power_stats *, cpufreq_power_stats);
