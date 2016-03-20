@@ -578,7 +578,7 @@ redo2:
 			else
 				src = kmap(page);
 
-			error = pipe_iov_copy_from_user(src, iov, &remaining,
+			error = pipe_iov_copy_from_user(src, &offset, iov, &remaining,
 							atomic);
 			if (atomic)
 				kunmap_atomic(src, KM_USER0);
