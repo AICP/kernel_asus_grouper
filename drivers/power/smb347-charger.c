@@ -946,45 +946,21 @@ static int cable_type_detect(void)
 				SMB_NOTICE("Reg3E : 0x%02x\n", retval);
 				if (retval & APSD_OK) {
 						retval &= APSD_RESULT;
-					if (retval == APSD_CDP) {
+					if (retval != APSD_SDP) {
 						printk(KERN_INFO "Cable: CDP\n");
 						charger->cur_cable_type = ac_cable;
 						success = battery_callback(ac_cable);
 #ifdef TOUCH_CALLBACK_ENABLED
 	                                    touch_callback(ac_cable);
 #endif
-					} else if (retval == APSD_DCP) {
-						printk(KERN_INFO "Cable: DCP\n");
-						charger->cur_cable_type = ac_cable;
-						success = battery_callback(ac_cable);
-#ifdef TOUCH_CALLBACK_ENABLED
-	                                    touch_callback(ac_cable);
-#endif
-					} else if (retval == APSD_OTHER) {
-						charger->cur_cable_type = ac_cable;
-						success = battery_callback(ac_cable);
-#ifdef TOUCH_CALLBACK_ENABLED
-	                                   touch_callback(ac_cable);
-#endif
-						printk(KERN_INFO "Cable: OTHER\n");
-					} else if (retval == APSD_SDP) {
+					} else {
 						printk(KERN_INFO "Cable: SDP\n");
 						charger->cur_cable_type = usb_cable;
 						success = battery_callback(usb_cable);
 #ifdef TOUCH_CALLBACK_ENABLED
 	                                    touch_callback(usb_cable);
 #endif
-					} else {
-						charger->cur_cable_type = unknow_cable;
-						printk(KERN_INFO "Unkown Plug In Cable type !\n");
-
-						if(usb_det_cable_type) {
-							printk(KERN_INFO "Use usb det %s cable to report\n",
-								(usb_det_cable_type == ac_cable) ? "ac" : "usb");
-							charger->cur_cable_type = usb_det_cable_type;
-							success = battery_callback(usb_det_cable_type);
-						}
-					}
+					} 
 				} else {
 					charger->cur_cable_type = unknow_cable;
 					printk(KERN_INFO "APSD not completed\n");
