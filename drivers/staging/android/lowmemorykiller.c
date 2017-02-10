@@ -200,7 +200,7 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 		selected_tasksize = tasksize;
 		selected_oom_adj = oom_adj;
 		lowmem_print(2, "select %d (%s), adj %d, size %d, to kill\n",
-			     p->pid, p->comm, oom_adj, tasksize);a
+			     p->pid, p->comm, oom_adj, tasksize);
 	}
 	if (selected) {
 		lowmem_print(1, "send sigkill to %d (%s), adj %d, size %d\n",
