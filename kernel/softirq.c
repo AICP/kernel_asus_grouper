@@ -255,11 +255,14 @@ restart:
 	local_irq_disable();
 
 	pending = local_softirq_pending();
-	if (pending && --max_restart)
-		goto restart;
 
-	if (pending)
+	if (pending) {
+		if (time_before(jiffies, end) && !need_resched() &&
+		    --max_restart)
+			goto restart;
+
 		wakeup_softirqd();
+	}
 
 	lockdep_softirq_exit();
 
