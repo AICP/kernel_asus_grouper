@@ -445,11 +445,15 @@ static int nvavp_pushbuffer_update(struct nvavp_info *nvavp, u32 phys_addr,
 	u32 gather_cmd, setucode_cmd, sync = 0;
 	u32 wordcount = 0;
 	u32 index, value = -1;
+        u32 max_index = 0;
 
 	mutex_lock(&nvavp->pushbuffer_lock);
 
 	/* check for pushbuffer wrapping */
-	if (nvavp->pushbuf_index >= nvavp->pushbuf_fence)
+	max_index = nvavp->pushbuf_fence;
+	max_index = ext_ucode_flag ? max_index : max_index - (sizeof(u32) * 4);
+
+	if (nvavp->pushbuf_index >= max_index)
 		nvavp->pushbuf_index = 0;
 
 	if (!ext_ucode_flag) {
@@ -648,6 +652,7 @@ static int nvavp_load_os(struct nvavp_info *nvavp, char *fw_os_file)
 	void *ptr;
 	u32 size;
 	int ret = 0;
+	u32 max_index = 0;
 
 	if (!os_info->os_bin) {
 		ret = request_firmware(&nvavp_os_fw, fw_os_file,
