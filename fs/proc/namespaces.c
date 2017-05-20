@@ -52,7 +52,7 @@ static struct dentry *proc_ns_instantiate(struct inode *dir,
 	inode->i_mode = S_IFREG|S_IRUSR;
 	inode->i_fop  = &ns_file_operations;
 	ei->ns_ops    = ns_ops;
-	ei->ns	      = ns;
+	ei->ns	      = ns_ops->get(task);
 
 	dentry->d_op = &pid_dentry_operations;
 	d_add(dentry, inode);

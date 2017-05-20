@@ -481,11 +481,11 @@ int battery_callback(unsigned usb_cable_state)
 		#endif
 	}
 	#ifndef REMOVE_USB_POWER_SUPPLY
-	else if (battery_cable_status == USB_Cable) {
+	else if (battery_cable_status == USB_Cable && old_cable_status != USB_Cable) {
 		power_supply_changed(&bq27541_supply[Charger_Type_USB]);
 	}
 	#endif
-	else if (battery_cable_status == USB_AC_Adapter) {
+	else if (battery_cable_status == USB_AC_Adapter && old_cable_status != USB_AC_Adapter) {
 		power_supply_changed(&bq27541_supply[Charger_Type_AC]);
 	}
 	cancel_delayed_work(&bq27541_device->status_poll_work);
