@@ -321,6 +321,7 @@ static void cable_detection_work_handler(struct work_struct *w)
 		if(!s_cable_info.ac_connected) {
 			printk(KERN_INFO "The USB cable is connected\n");
 			s_cable_info.cable_status = 0x01; //0001
+                        smb347_hc_mode_callback(1,1); // ADS: from metallice
 		} else {
 			printk(KERN_INFO "AC adapter connect\n");
 			s_cable_info.cable_status = 0x03; //0011

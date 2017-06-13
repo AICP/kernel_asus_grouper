@@ -147,6 +147,7 @@ static enum power_supply_property bq27541_properties[] = {
 	POWER_SUPPLY_PROP_PRESENT,
 	POWER_SUPPLY_PROP_TECHNOLOGY,
 	POWER_SUPPLY_PROP_VOLTAGE_NOW,
+        POWER_SUPPLY_PROP_CURRENT_NOW,
 	POWER_SUPPLY_PROP_CAPACITY,
 	POWER_SUPPLY_PROP_TEMP,
 	POWER_SUPPLY_PROP_CURRENT_NOW,
@@ -480,11 +481,11 @@ int battery_callback(unsigned usb_cable_state)
 		#endif
 	}
 	#ifndef REMOVE_USB_POWER_SUPPLY
-	else if (battery_cable_status == USB_Cable) {
+	else if (battery_cable_status == USB_Cable && old_cable_status != USB_Cable) {
 		power_supply_changed(&bq27541_supply[Charger_Type_USB]);
 	}
 	#endif
-	else if (battery_cable_status == USB_AC_Adapter) {
+	else if (battery_cable_status == USB_AC_Adapter && old_cable_status != USB_AC_Adapter) {
 		power_supply_changed(&bq27541_supply[Charger_Type_AC]);
 	}
 	cancel_delayed_work(&bq27541_device->status_poll_work);
@@ -550,6 +551,19 @@ static int bq27541_get_psp(int reg_offset, enum power_supply_property psp,
 		}
 		BAT_NOTICE("voltage_now= %u uV\n", val->intval);
 	}
+        if (psp == POWER_SUPPLY_PROP_CURRENT_NOW) {
+                val->intval = rt_value;
+                /* Returns a signed 16-bit value in mA */
+                if (val->intval & 0x8000) {
+                        /* Negative */
+                        val->intval = ~val->intval & 0x7fff;
+                        val->intval++;
+                        val->intval *= -1;
+                }
+                val->intval *= 1000;
+                BAT_NOTICE("current_now= %d uA\n", val->intval);
+        }
+
 	if (psp == POWER_SUPPLY_PROP_STATUS) {
 		ret = bq27541_device->bat_status = rt_value;
 		static char *status_text[] = {"Unknown", "Charging", "Discharging", "Not charging", "Full"};
